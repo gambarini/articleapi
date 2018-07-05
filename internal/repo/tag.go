@@ -3,7 +3,6 @@ package repo
 import (
 	"github.com/gambarini/articleapi/internal/model"
 	"gopkg.in/mgo.v2/bson"
-	"log"
 )
 
 func (repo *ArticleRepository) FindTag(tag, date string) (resultTag model.Tag, err error) {
@@ -11,8 +10,6 @@ func (repo *ArticleRepository) FindTag(tag, date string) (resultTag model.Tag, e
 	session, collection := repo.articleCollection()
 
 	defer session.Close()
-
-	log.Printf("%s - %s", tag, date)
 
 	query := bson.M{"$and":
 	[]bson.M{
@@ -36,8 +33,6 @@ func (repo *ArticleRepository) FindTag(tag, date string) (resultTag model.Tag, e
 		return resultTag, err
 	}
 
-	log.Printf("a: %d", len(articles))
-
 	resultTag = model.Tag{
 		Tag:         tag,
 		Articles:    []string{},
@@ -47,8 +42,6 @@ func (repo *ArticleRepository) FindTag(tag, date string) (resultTag model.Tag, e
 	rTgsMap := make(map[string]string)
 
 	for _, art := range articles {
-
-		log.Printf("f: %v", art)
 
 		resultTag.Articles = append(resultTag.Articles, art.ID)
 
