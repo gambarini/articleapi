@@ -60,3 +60,6 @@ resulting in a eventual consistent tags database with better throughput.
 The only Unit test added was for the FindTag method in the ArticleRepository. This api was build in a bit over a hour and
 only tests for a more complex code were considered. All endpoints were tested with Postman during development and a Collection
 file was added to the repository for reference.
+
+To improve execution time on the FindTag method the count query is executed in a go routine, concurrently to the main query fetching
+the articles.
