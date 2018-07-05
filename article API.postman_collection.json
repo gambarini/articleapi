@@ -1,0 +1,96 @@
+{
+	"info": {
+		"_postman_id": "18c0152b-469a-4457-93cd-862f0031263d",
+		"name": "article API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST Article",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"latest science shows that potato chips are better for you than sugar\",\n  \"body\" : \"some text, potentially containing simple markup about how potato chips are great\",\n  \"tags\" : [\"health\", \"fitness\", \"science\"]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8000/articles",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"articles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Article",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": \"1\",\n  \"title\": \"latest science shows that potato chips are better for you than sugar\",\n  \"body\" : \"some text, potentially containing simple markup about how potato chips are great\",\n  \"tags\" : [\"health\", \"fitness\", \"science\"]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8000/articles/3126367a-7697-4ee0-a6f7-d6eff4f7aa06",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"articles",
+						"3126367a-7697-4ee0-a6f7-d6eff4f7aa06"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Tags",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": \"1\",\n  \"title\": \"latest science shows that potato chips are better for you than sugar\",\n  \"body\" : \"some text, potentially containing simple markup about how potato chips are great\",\n  \"tags\" : [\"health\", \"fitness\", \"science\"]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8000/tags/health/2018-07-05",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"tags",
+						"health",
+						"2018-07-05"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
