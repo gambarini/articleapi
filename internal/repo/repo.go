@@ -3,9 +3,17 @@ package repo
 import (
 	"gopkg.in/mgo.v2"
 	"fmt"
+	"github.com/gambarini/articleapi/internal/model"
 )
 
 type (
+
+	IArticleRepository interface {
+		Store(article model.Article) error
+		Find(id string) (article model.Article, err error)
+		FindTag(tag, date string) (resultTag model.Tag, err error)
+	}
+
 	ArticleRepository struct {
 		session *mgo.Session
 	}

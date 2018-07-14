@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 go build ./...
+go test -v ./...
 
 echo "starting mongodb..."
 docker run -p 27017:27017 --name mongodb_articleapi -d mongo:4.0.0

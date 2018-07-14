@@ -7,14 +7,13 @@ import (
 	"encoding/json"
 )
 
-func HandleTags(r *mux.Router, srv *Server) {
+func HandleTags(srv *Server) {
 
-	r.HandleFunc("/tags/{tagName}/{date}", srv.getTag).Methods("GET")
+	srv.Router().HandleFunc("/tags/{tagName}/{date}", srv.GetTag).Methods("GET")
 
 }
 
-
-func (srv *Server) getTag(writer http.ResponseWriter, request *http.Request) {
+func (srv *Server) GetTag(writer http.ResponseWriter, request *http.Request) {
 
 	vars := mux.Vars(request)
 	tagName := vars["tagName"]

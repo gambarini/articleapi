@@ -9,25 +9,30 @@ import (
 type (
 	Server struct {
 		*http.Server
-		Repo *repo.ArticleRepository
+		Repo repo.IArticleRepository
 	}
 )
 
-func NewServer(addr string, db *repo.ArticleRepository) *Server {
+func NewServer(addr string, db repo.IArticleRepository) *Server {
+
+	router := mux.NewRouter()
 
 	server := &Server{
 		Server: &http.Server{
 			Addr: addr,
+			Handler: router,
 		},
 		Repo: db,
 	}
 
-	r := mux.NewRouter()
-
-	http.Handle("/", r)
-
-	HandleArticle(r, server)
-	HandleTags(r, server)
+	HandleArticle(server)
+	HandleTags(server)
 
 	return server
 }
+
+func (srv *Server) Router() *mux.Router {
+	return srv.Handler.(*mux.Router)
+}
+
+

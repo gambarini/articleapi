@@ -10,10 +10,10 @@ import (
 	"log"
 )
 
-func HandleArticle(r *mux.Router, srv *Server) {
+func HandleArticle(srv *Server) {
 
-	r.HandleFunc("/articles/{id}", srv.getArticle).Methods("GET")
-	r.HandleFunc("/articles", srv.postArticle).Methods("POST")
+	srv.Router().HandleFunc("/articles/{id}", srv.getArticle).Methods("GET")
+	srv.Router().HandleFunc("/articles", srv.postArticle).Methods("POST")
 
 }
 
@@ -26,7 +26,7 @@ func (srv *Server) getArticle(writer http.ResponseWriter, request *http.Request)
 
 	if err != nil {
 		log.Print(err)
-		writer.WriteHeader(500)
+		writer.WriteHeader(404)
 		return
 	}
 
