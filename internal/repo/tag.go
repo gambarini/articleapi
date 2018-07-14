@@ -56,7 +56,7 @@ func (repo *ArticleRepository) FindTag(tag, date string) (resultTag model.Tag, e
 		resultTag.RelatedTags = append(resultTag.RelatedTags, key)
 	}
 
-	resultTag.Count = <- count
+	resultTag.Count = <-count
 
 	return resultTag, nil
 }

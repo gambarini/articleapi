@@ -5,7 +5,6 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
-
 func (repo *ArticleRepository) Store(article model.Article) error {
 
 	session, collection := repo.articleCollection()

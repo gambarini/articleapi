@@ -4,7 +4,6 @@ import (
 	"testing"
 	"github.com/gambarini/articleapi/internal/model"
 	"net/http/httptest"
-	"net/http"
 	"fmt"
 )
 
@@ -36,14 +35,14 @@ func Test_getTag(t *testing.T) {
 
 	tags["B-2010-10-10"] = model.Tag{
 		RelatedTags: []string{"A"},
-		Articles: []string{"1"},
-		Tag: "B",
-		Count: 1,
+		Articles:    []string{"1"},
+		Tag:         "B",
+		Count:       1,
 	}
 
 	tests := []struct {
-		name string
-		url string
+		name    string
+		url     string
 		expCode int
 	}{
 		{name: "Tag found", url: "/tags/B/2010-10-10", expCode: 200},
@@ -53,7 +52,7 @@ func Test_getTag(t *testing.T) {
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
 
-			req, _ := http.NewRequest("GET", test.url, nil)
+			req := httptest.NewRequest("GET", test.url, nil)
 
 			w := httptest.NewRecorder()
 

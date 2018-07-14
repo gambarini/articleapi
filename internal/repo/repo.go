@@ -7,7 +7,6 @@ import (
 )
 
 type (
-
 	IArticleRepository interface {
 		Store(article model.Article) error
 		Find(id string) (article model.Article, err error)

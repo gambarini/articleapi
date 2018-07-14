@@ -19,7 +19,7 @@ func NewServer(addr string, db repo.IArticleRepository) *Server {
 
 	server := &Server{
 		Server: &http.Server{
-			Addr: addr,
+			Addr:    addr,
 			Handler: router,
 		},
 		Repo: db,
@@ -34,5 +34,3 @@ func NewServer(addr string, db repo.IArticleRepository) *Server {
 func (srv *Server) Router() *mux.Router {
 	return srv.Handler.(*mux.Router)
 }
-
-
