@@ -20,7 +20,7 @@
 					"raw": "{\n  \"title\": \"latest science shows that potato chips are better for you than sugar\",\n  \"body\" : \"some text, potentially containing simple markup about how potato chips are great\",\n  \"tags\" : [\"health\", \"fitness\", \"science\"]\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8000/articles",
+					"raw": "https://localhost:8000/articles",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -48,7 +48,7 @@
 					"raw": "{\n  \"id\": \"1\",\n  \"title\": \"latest science shows that potato chips are better for you than sugar\",\n  \"body\" : \"some text, potentially containing simple markup about how potato chips are great\",\n  \"tags\" : [\"health\", \"fitness\", \"science\"]\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8000/articles/3126367a-7697-4ee0-a6f7-d6eff4f7aa06",
+					"raw": "https://localhost:8000/articles/3126367a-7697-4ee0-a6f7-d6eff4f7aa06",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -77,7 +77,7 @@
 					"raw": "{\n  \"id\": \"1\",\n  \"title\": \"latest science shows that potato chips are better for you than sugar\",\n  \"body\" : \"some text, potentially containing simple markup about how potato chips are great\",\n  \"tags\" : [\"health\", \"fitness\", \"science\"]\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8000/tags/health/2018-07-05",
+					"raw": "https://localhost:8000/tags/health/2018-07-05",
 					"protocol": "http",
 					"host": [
 						"localhost"

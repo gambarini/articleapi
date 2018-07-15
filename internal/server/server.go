@@ -4,6 +4,8 @@ import (
 	"net/http"
 	"github.com/gorilla/mux"
 	"github.com/gambarini/articleapi/internal/repo"
+	"golang.org/x/net/http2"
+	"log"
 )
 
 type (
@@ -17,11 +19,19 @@ func NewServer(addr string, db repo.IArticleRepository) *Server {
 
 	router := mux.NewRouter()
 
+	httpServer := &http.Server{
+		Addr:    addr,
+		Handler: router,
+	}
+
+	err := http2.ConfigureServer(httpServer, nil)
+
+	if err != nil {
+		log.Fatalf("Error configuring http2 server, %s", err)
+	}
+
 	server := &Server{
-		Server: &http.Server{
-			Addr:    addr,
-			Handler: router,
-		},
+		Server: httpServer,
 		Repo: db,
 	}
 

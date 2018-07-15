@@ -19,7 +19,7 @@ func main() {
 	srv := server.NewServer(":8000", repo)
 
 	log.Println("Listening on port 8000. Ctrl+C to stop")
-	err = srv.ListenAndServe()
+	err = srv.ListenAndServeTLS("certificate/server.crt", "certificate/server.key")
 
 	if err != nil {
 		log.Fatalf("Failed to start server, %s", err)
