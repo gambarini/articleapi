@@ -3,6 +3,7 @@ package repo
 import (
 	"github.com/gambarini/articleapi/internal/model"
 	"gopkg.in/mgo.v2/bson"
+	"gopkg.in/mgo.v2"
 )
 
 func (repo *ArticleRepository) FindTag(tag, date string) (resultTag model.Tag, err error) {
@@ -20,14 +21,13 @@ func (repo *ArticleRepository) FindTag(tag, date string) (resultTag model.Tag, e
 
 	var articles []model.Article
 	count := make(chan int)
+	tags := make(chan []string)
 
-	go func() {
-		c, _ := collection.Find(query).Count()
-		count <- c
-		close(count)
-	}()
+	go queryCount(collection, query, count)
 
-	err = collection.Find(query).Sort("-datetime").Limit(10).All(&articles)
+	go queryTags(collection, query, tag, tags)
+
+	err = collection.Find(query).Select(bson.M{"_id": 1}).Sort("-datetime").Limit(10).All(&articles)
 
 	if err != nil {
 		return resultTag, err
@@ -39,24 +39,36 @@ func (repo *ArticleRepository) FindTag(tag, date string) (resultTag model.Tag, e
 		RelatedTags: []string{},
 	}
 
-	rTgsMap := make(map[string]string)
-
 	for _, art := range articles {
 
 		resultTag.Articles = append(resultTag.Articles, art.ID)
 
-		for _, t := range art.Tags {
-			if t != tag {
-				rTgsMap[t] = t
-			}
-		}
-	}
-
-	for key := range rTgsMap {
-		resultTag.RelatedTags = append(resultTag.RelatedTags, key)
 	}
 
 	resultTag.Count = <-count
+	resultTag.RelatedTags = <-tags
 
 	return resultTag, nil
+}
+
+func queryCount(collection *mgo.Collection, query bson.M, count chan int) {
+	c, _ := collection.Find(query).Count()
+	count <- c
+	close(count)
+}
+
+func queryTags(collection *mgo.Collection, query bson.M, tag string, tags chan []string) {
+	var ts []string
+	resultTs := make([]string, 0)
+
+	collection.Find(query).Distinct("tags", &ts)
+
+	for _, t := range ts {
+		if t != tag {
+			resultTs = append(resultTs, t)
+		}
+	}
+
+	tags <- resultTs
+	close(tags)
 }
